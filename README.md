@@ -6,7 +6,9 @@ This app includes a demo React frontend and Django backend deployment setup.
 
 ## 🚀 How to Run
 
+## this is for testing purpose
 ```bash
 docker-compose down
 docker-compose up -d
+
 
