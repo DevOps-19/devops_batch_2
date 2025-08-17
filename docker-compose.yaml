@@ -6,10 +6,11 @@ services:
       context: .
       dockerfile: Dockerfile
     command: >
-      sh -c "python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8002"  # Change to 8002
+      sh -c "sleep 10 && 
+             python manage.py migrate && 
+             python manage.py runserver 0.0.0.0:8002"
     ports:
-      - "8002:8002"  # Map host 8002 to container 8002
+      - "8002:8002"
     restart: always
     environment:
       - DEBUG=True
