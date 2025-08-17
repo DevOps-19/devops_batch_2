@@ -1,8 +1,32 @@
+version: '3.8'
+
 services:
   web:
     build:
       context: .
       dockerfile: Dockerfile
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8001"
     ports:
-      - "8001:8001"
+      - "8011:8001"
+    restart: always
+    environment:
+      - DEBUG=True
+      - ALLOWED_HOSTS=*
 
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    user: root
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+    restart: always
+
+volumes:
+  jenkins_data:
